@@ -43,7 +43,7 @@ public class SootTest {
 		Options.v().set_src_prec(Options.src_prec_apk);
 	    Options.v().set_ignore_resolution_errors(true);
 	    Options.v().set_debug(false);
-	    Options.v().set_verbose(false);
+	    Options.v().set_verbose(true);
 	    Options.v().set_unfriendly_mode(true);
 
 	    soot.options.Options.v().set_process_dir(Collections.singletonList(apkPath));
@@ -80,7 +80,6 @@ public class SootTest {
 			    	}
 			        
 			    	System.out.println("------------------\n\n");
-		        
 		    	}
 	    	}
 	    }
