@@ -27,6 +27,10 @@ class sootFromScratch
 	    soot.options.Options.v().set_allow_phantom_refs(true);
 	    soot.options.Options.v().set_force_android_jar("ic3-android.jar");
 	    
+	    // Not sure if I'm doing this right...
+	    soot.options.Options.v().set_output_dir("./");
+	    soot.options.Options.v().set_output_format(Options.output_format_jimple);
+	    
 	    Scene.v().loadNecessaryClasses();
 	}
 	
@@ -64,7 +68,7 @@ class sootFromScratch
 		return methods;
 	}
 	
-	// generates the body of a given method 
+	// generates the jimple body of a given method 
 	public static ArrayList<UnitPatchingChain> getMethodBody(SootMethod method) {
 		
 		ArrayList<UnitPatchingChain> body = new ArrayList<UnitPatchingChain>();
@@ -83,6 +87,26 @@ class sootFromScratch
 		return body;
 	}
 	
+	// generates a list of function calls in the given method 
+	public static ArrayList<String> getFunctionCalls(JimpleBody body) {
+		
+		ArrayList<String> functionCalls = new ArrayList<String>();
+
+		try {
+		
+			Iterator chain_it = body.getUnits().iterator();
+			
+			while(chain_it.hasNext()) {
+				functionCalls.add((String) chain_it.next());
+				//System.out.println("\t# " + chain_it.next());
+			}
+		}
+		catch(RuntimeException e) {
+			System.out.println(e);
+		}
+		return functionCalls;
+	}
+	
 	// analyze the APK components 
 	public static void analyzeAPK() {
 				
@@ -92,7 +116,7 @@ class sootFromScratch
 		
 		for (SootClass s_class : getClasses()) {
 			
-			if (s_class.getName() == "com.karmacracy.app.ui.RegisterActivity") {
+			if (s_class.getName() == "com.example.test_app.MainActivity") {
 			
 				System.out.println("\n\n" + s_class.getName());
 				generateLine(s_class.getName());
@@ -102,12 +126,15 @@ class sootFromScratch
 					
 					try {
 						JimpleBody body = (JimpleBody) method.retrieveActiveBody();
-						UnitPatchingChain chain = body.getUnits();
-						Iterator chain_it = body.getUnits().iterator();
-						while(chain_it.hasNext()) {
-							System.out.println("\t# " + chain_it.next());
-						}
+						ArrayList<String> functionCalls = new ArrayList<String>();
+						
+						functionCalls = getFunctionCalls(body);
+						
+						System.out.println(functionCalls);
+						
 						System.out.println("\n");
+						
+						// System.out.println(body.toString() + "\n");
 					}
 					catch (RuntimeException e) {
 						System.out.println("Error");
@@ -120,7 +147,7 @@ class sootFromScratch
     public static void main(String args[]) { 
     	
     	System.out.println("Soot analysis...\n");
-    	sootFromScratch soot_analysis = new sootFromScratch("com.karmacracy.apk"); 
+    	sootFromScratch soot_analysis = new sootFromScratch("app-debug.apk"); 
     	soot_analysis.analyzeAPK();
     } 
 } 
