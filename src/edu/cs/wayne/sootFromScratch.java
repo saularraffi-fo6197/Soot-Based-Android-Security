@@ -1,3 +1,8 @@
+/*
+ * Generate list of jimple instructions for the given filtered class. In this case, the filtered class
+ * is MainActivity
+ */
+
 package edu.cs.wayne;
 
 import java.util.Collections;
