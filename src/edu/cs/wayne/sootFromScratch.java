@@ -97,7 +97,11 @@ class sootFromScratch
 			Iterator chain_it = body.getUnits().iterator();
 			
 			while(chain_it.hasNext()) {
-				functionCalls.add((String) chain_it.next());
+				String instruction = (String) chain_it.next().toString();
+				if (!instruction.contains("virtualinvoke")) 
+					continue;
+				String functionSubstring[] = instruction.split(":");
+				functionCalls.add(functionSubstring[1]);
 				//System.out.println("\t# " + chain_it.next());
 			}
 		}
@@ -130,15 +134,18 @@ class sootFromScratch
 						
 						functionCalls = getFunctionCalls(body);
 						
-						System.out.println(functionCalls);
+						for (String func : functionCalls) {
+							System.out.println(func);
+						}
 						
-						System.out.println("\n");
-						
+						//System.out.println(functionCalls + "\n");
+												
 						// System.out.println(body.toString() + "\n");
 					}
 					catch (RuntimeException e) {
 						System.out.println("Error");
 					}
+					System.out.println("\n");
 				}
 			}
 		}
