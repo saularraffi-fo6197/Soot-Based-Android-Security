@@ -19,6 +19,7 @@ class sootFromScratch
 		this.apk_file_path = apk_path;
 	}
 	
+	
 	// initialize soot options and set up Scene 
 	public static void initializeSoot() {
 		Options.v().set_src_prec(Options.src_prec_apk);
@@ -34,6 +35,7 @@ class sootFromScratch
 	    Scene.v().loadNecessaryClasses();
 	}
 	
+	
 	// generates a line with length of the string it is under 
 	public static void generateLine(String s) {
 		for (int i = 0; i < s.length(); i++) {
@@ -41,6 +43,7 @@ class sootFromScratch
 		}
 		System.out.println("\n");
 	}
+	
 	
 	// generates a list of classes in the APK
 	public static ArrayList<SootClass> getClasses() {
@@ -55,6 +58,7 @@ class sootFromScratch
 		return classes;
 	}
 	
+	
 	// generates a list of methods in a given class 
 	public static ArrayList<SootMethod> getMethods(SootClass s_class) {
 		
@@ -67,6 +71,7 @@ class sootFromScratch
 		
 		return methods;
 	}
+	
 	
 	// generates the jimple body of a given method 
 	public static ArrayList<UnitPatchingChain> getMethodBody(SootMethod method) {
@@ -86,6 +91,7 @@ class sootFromScratch
 		}
 		return body;
 	}
+	
 	
 	// generates a list of function calls in the given method 
 	public static ArrayList<String> getFunctionCalls(JimpleBody body) {
@@ -111,6 +117,26 @@ class sootFromScratch
 		return functionCalls;
 	}
 	
+	
+	// returns true if body contains function that matches funcNameCheck.  Returns false if no function with name
+	// funcNameCheck is found 
+	public static boolean containsFunctionCall(JimpleBody body, String funcNameCheck) {
+		
+		ArrayList<String> functionCalls = new ArrayList<String>();
+		functionCalls = getFunctionCalls(body);
+		
+		for (String func : functionCalls) {
+			String funcName = func.split(" ")[2];
+			
+			if (funcName.contains(funcNameCheck));
+				return true;
+			//System.out.println(funcName);
+		}
+		
+		return false;
+	}
+	
+	
 	// analyze the APK components 
 	public static void analyzeAPK() {
 				
@@ -132,15 +158,7 @@ class sootFromScratch
 						JimpleBody body = (JimpleBody) method.retrieveActiveBody();
 						ArrayList<String> functionCalls = new ArrayList<String>();
 						
-						functionCalls = getFunctionCalls(body);
-						
-						for (String func : functionCalls) {
-							System.out.println(func);
-						}
-						
-						//System.out.println(functionCalls + "\n");
-												
-						// System.out.println(body.toString() + "\n");
+						System.out.println(containsFunctionCall(body, "getText"));
 					}
 					catch (RuntimeException e) {
 						System.out.println("Error");
