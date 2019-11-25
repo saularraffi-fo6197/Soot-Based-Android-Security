@@ -104,11 +104,20 @@ class sootFromScratch
 			
 			while(chain_it.hasNext()) {
 				String instruction = (String) chain_it.next().toString();
+				
 				if (!instruction.contains("virtualinvoke")) 
 					continue;
-				String functionSubstring[] = instruction.split(":");
-				functionCalls.add(functionSubstring[1]);
-				//System.out.println("\t# " + chain_it.next());
+				
+				String functionSubstring1[] = instruction.split(":");
+				String functionSubstring2[] = functionSubstring1[1].split(" ");
+				String functionString = "";
+				
+				for (int i = 0; i < functionSubstring2.length; i++) {
+					if (i == 0)
+						continue;
+					functionString = functionString + " " + functionSubstring2[i]; 
+				}
+				functionCalls.add(functionString);
 			}
 		}
 		catch(RuntimeException e) {
@@ -127,13 +136,17 @@ class sootFromScratch
 		
 		for (String func : functionCalls) {
 			String funcName = func.split(" ")[2];
-			
 			if (funcName.contains(funcNameCheck));
 				return true;
-			//System.out.println(funcName);
 		}
-		
 		return false;
+	}
+	
+	
+	// returns the parameter passed to the given function 
+	public static String getParam(String functionCall) {
+		// Implement 
+		return "";
 	}
 	
 	
@@ -157,8 +170,14 @@ class sootFromScratch
 					try {
 						JimpleBody body = (JimpleBody) method.retrieveActiveBody();
 						ArrayList<String> functionCalls = new ArrayList<String>();
+						functionCalls = getFunctionCalls(body);
 						
-						System.out.println(containsFunctionCall(body, "getText"));
+//						System.out.println(body.toString());
+						
+						for (String func : functionCalls)
+							System.out.println("\t  " + func);
+						
+						// System.out.println(containsFunctionCall(body, "getText"));
 					}
 					catch (RuntimeException e) {
 						System.out.println("Error");
@@ -168,6 +187,7 @@ class sootFromScratch
 			}
 		}
 	}
+	
 	
     public static void main(String args[]) { 
     	
