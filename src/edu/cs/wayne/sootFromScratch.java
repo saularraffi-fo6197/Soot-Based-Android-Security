@@ -113,7 +113,7 @@ class sootFromScratch
 				String functionString = "";
 				
 				for (int i = 0; i < functionSubstring2.length; i++) {
-					if (i == 0)
+					if (i < 2)
 						continue;
 					functionString = functionString + " " + functionSubstring2[i]; 
 				}
