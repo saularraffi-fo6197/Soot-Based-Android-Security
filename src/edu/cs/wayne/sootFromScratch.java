@@ -167,6 +167,19 @@ class sootFromScratch
 	}
 	
 	
+	// returns the name of the function in the function call
+	// format of argument --> funcName(param type)>argument
+	public static String getFunctionName(String functionCall) {
+		String funcName = "";
+		for(int i = 0; i < functionCall.length(); i++) { 
+			if (functionCall.charAt(i) == '(')
+				break;
+			funcName = funcName + functionCall.charAt(i);
+		}
+		return funcName;
+	}
+	
+	
 	// analyze the APK components 
 	public static void analyzeAPK() {
 				
@@ -190,12 +203,15 @@ class sootFromScratch
 						ArrayList<String> functionCalls = new ArrayList<String>();
 						functionCalls = getFunctionCalls(body);
 						
+//						System.out.println(body.toString());
+						
 						for (String func : functionCalls) {
-							System.out.println("\t  Function call : " + func);
-							System.out.println("\t  Params:");
-							for (String param : getParams(func))
-								System.out.println("\t\t- " + param);
-							System.out.println("");
+							System.out.println(getFunctionName(func));
+//							System.out.println("\t  Function call : " + func);
+//							System.out.println("\t  Params:");
+//							for (String param : getParams(func))
+//								System.out.println("\t\t- " + param);
+//							System.out.println("");
 						}		
 					}
 					catch (RuntimeException e) {
