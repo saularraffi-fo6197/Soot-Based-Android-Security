@@ -144,9 +144,26 @@ class sootFromScratch
 	
 	
 	// returns the parameter passed to the given function 
-	public static String getParam(String functionCall) {
-		// Implement 
-		return "";
+	// format of argument --> funcName(param type)>argument
+	public static ArrayList<String> getParams(String functionCall) {
+		
+		String functionCallSubstring[] = functionCall.split(">");
+		String paramString = functionCallSubstring[1];
+		paramString = paramString.substring(1,paramString.length()-1);
+		
+		String paramList[] = paramString.split(",");
+		
+		ArrayList<String> params = new ArrayList<String>();
+		
+		for (int i = 0; i < paramList.length; i++)
+			params.add(paramList[i].trim());
+		
+		if (paramList[0].length() == 0) {
+			params.clear();
+			params.add("null");
+		}
+		
+		return params;
 	}
 	
 	
@@ -169,15 +186,17 @@ class sootFromScratch
 					
 					try {
 						JimpleBody body = (JimpleBody) method.retrieveActiveBody();
+						
 						ArrayList<String> functionCalls = new ArrayList<String>();
 						functionCalls = getFunctionCalls(body);
 						
-//						System.out.println(body.toString());
-						
-						for (String func : functionCalls)
-							System.out.println("\t  " + func);
-						
-						// System.out.println(containsFunctionCall(body, "getText"));
+						for (String func : functionCalls) {
+							System.out.println("\t  Function call : " + func);
+							System.out.println("\t  Params:");
+							for (String param : getParams(func))
+								System.out.println("\t\t- " + param);
+							System.out.println("");
+						}		
 					}
 					catch (RuntimeException e) {
 						System.out.println("Error");
