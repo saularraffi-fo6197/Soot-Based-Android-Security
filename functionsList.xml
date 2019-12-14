@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <functions>
-	<func1 name="println">	
-		<badParam1>"Hello World!"</badParam1>
-	</func1>
-	<func2 name="substring">	
-		<badParam1>1</badParam1>
-		<badParam2>5</badParam2>
-	</func2>
+	<function name="func1">	
+		<param  order ="1" name="url" default="" insecure_value="false"/>
+		<param  order ="2" name="url" default="" insecure_value="false"/>
+	</function>
+	<function name="func2">	
+		<param  order ="1" name="url" default="" insecure_value="false"/>
+		<param  order ="2" name="url" default="" insecure_value="false"/>
+	</function>
 </functions>

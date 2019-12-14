@@ -1,0 +1,6 @@
+HttpURLConnection
+openConnection
+HttpPost
+HttpGet
+HttpClient.execute
+webView.loadUrl
