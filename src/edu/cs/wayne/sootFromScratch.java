@@ -3,7 +3,6 @@ package edu.cs.wayne;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.ArrayList;
-import edu.cs.wayne.JimpleParser.*;
 
 import soot.options.*;
 import soot.Scene;
@@ -58,16 +57,15 @@ class sootFromScratch
 						ArrayList<String> functionCalls = new ArrayList<String>();
 						functionCalls = JimpleParser.getFunctionCalls(body);
 						
-						System.out.println(body.toString());
+//						System.out.println(body.toString());
 						
 //						for (String func : functionCalls) {
 //							System.out.println("\t  Function call : " + func);
 //							System.out.println("\t  Params:");
-//							for (String param : ApkParser.getParams(func))
+//							for (String param : JimpleParser.getParams(func))
 //								System.out.println("\t\t- " + param);
 //							System.out.println("");
-//						}	
-												
+//						}												
 					}
 					catch (RuntimeException e) {
 						System.out.println("Error");
@@ -76,6 +74,7 @@ class sootFromScratch
 				}
 			}
 		}
+		XmlParser.xmlParser();
 	}
 	
 	
