@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <functions>
 	<function name="func1">	
-		<param  order ="1" name="url" default="" insecure_value="false"/>
-		<param  order ="2" name="url" default="" insecure_value="false"/>
+		<param  order ="1" name="url1" default="" insecure_value="false"/>
+		<param  order ="2" name="url2" default="" insecure_value="false"/>
 	</function>
 	<function name="func2">	
-		<param  order ="1" name="url" default="" insecure_value="false"/>
-		<param  order ="2" name="url" default="" insecure_value="false"/>
+		<param  order ="1" name="url1" default="" insecure_value="false"/>
+		<param  order ="2" name="url2" default="" insecure_value="false"/>
 	</function>
 </functions>

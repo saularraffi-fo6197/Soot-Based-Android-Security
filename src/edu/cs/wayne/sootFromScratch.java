@@ -41,24 +41,24 @@ class sootFromScratch
 		
 		initializeSoot();
 		
-		for (SootClass s_class : JimpleParser.getClasses()) {
-			
-			if (s_class.getName() == "com.example.test_app.MainActivity") {
-			
-				System.out.println("\n\n" + s_class.getName());
-				JimpleParser.generateLine(s_class.getName());
-				
-				for (SootMethod method : JimpleParser.getMethods(s_class)) {
-					System.out.println("  *  " + method.getSignature() + "\n");
-					
-					try {
-						JimpleBody body = (JimpleBody) method.retrieveActiveBody();
-						
-						ArrayList<String> functionCalls = new ArrayList<String>();
-						functionCalls = JimpleParser.getFunctionCalls(body);
-						
-//						System.out.println(body.toString());
-						
+//		for (SootClass s_class : JimpleParser.getClasses()) {
+//			
+//			if (s_class.getName() == "com.example.test_app.MainActivity") {
+//			
+//				System.out.println("\n\n" + s_class.getName());
+//				JimpleParser.generateLine(s_class.getName());
+//				
+//				for (SootMethod method : JimpleParser.getMethods(s_class)) {
+//					System.out.println("  *  " + method.getSignature() + "\n");
+//					
+//					try {
+//						JimpleBody body = (JimpleBody) method.retrieveActiveBody();
+//						
+//						ArrayList<String> functionCalls = new ArrayList<String>();
+//						functionCalls = JimpleParser.getFunctionCalls(body);
+//						
+////						System.out.println(body.toString());
+//						
 //						for (String func : functionCalls) {
 //							System.out.println("\t  Function call : " + func);
 //							System.out.println("\t  Params:");
@@ -66,15 +66,15 @@ class sootFromScratch
 //								System.out.println("\t\t- " + param);
 //							System.out.println("");
 //						}												
-					}
-					catch (RuntimeException e) {
-						System.out.println("Error");
-					}
-					System.out.println("\n");
-				}
-			}
-		}
-		XmlParser.xmlParser();
+//					}
+//					catch (RuntimeException e) {
+//						System.out.println("Error");
+//					}
+//					System.out.println("\n");
+//				}
+//			}
+//		}
+		XmlParser.printFunctionsAndParams();
 	}
 	
 	
